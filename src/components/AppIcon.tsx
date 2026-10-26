@@ -14,6 +14,7 @@ const icons = {
   logout: { ios: 'rectangle.portrait.and.arrow.right', android: 'logout', web: 'logout' },
   appearance: { ios: 'sun.max', android: 'light_mode', web: 'light_mode' },
   info: { ios: 'info.circle', android: 'info', web: 'info' },
+  help: { ios: 'questionmark.circle', android: 'help_outline', web: 'help_outline' },
 } as const;
 
 export default function AppIcon({ name, color = Colors.accent, size = 20 }: {

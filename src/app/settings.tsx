@@ -45,6 +45,14 @@ export default function SettingsScreen() {
           <Text style={styles.value}>Theme</Text>
           <Text style={styles.description}>Light</Text>
         </View>
+        <View style={[ui.iconRow, { marginTop: 12, marginBottom: 2 }]}><AppIcon name="help" size={18} /><Text style={ui.sectionTitle}>Help</Text></View>
+        <Pressable accessibilityRole="button" onPress={() => router.push('/help')} style={({ pressed }) => [ui.card, styles.row, pressed && ui.pressed]}>
+          <View style={styles.rowText}>
+            <Text style={styles.value}>Help & Support</Text>
+            <Text style={styles.description}>Learn how to use the app and find quick answers.</Text>
+          </View>
+          <AppIcon name="forward" size={18} />
+        </Pressable>
         <View style={[ui.iconRow, { marginTop: 12, marginBottom: 2 }]}><AppIcon name="info" size={18} /><Text style={ui.sectionTitle}>About</Text></View>
         <Pressable accessibilityRole="button" onPress={() => router.push('/about')} style={({ pressed }) => [ui.card, styles.row, pressed && ui.pressed]}>
           <View style={styles.rowText}>
