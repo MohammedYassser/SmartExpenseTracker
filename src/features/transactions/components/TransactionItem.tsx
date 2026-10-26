@@ -6,8 +6,8 @@ import type { Transaction } from '@/models/Transaction';
 interface TransactionItemProps {
   transaction: Transaction;
   onPress: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 export default function TransactionItem({ transaction, onPress, onEdit, onDelete }: TransactionItemProps) {
@@ -35,7 +35,7 @@ export default function TransactionItem({ transaction, onPress, onEdit, onDelete
           })}
         </Text>
       </Pressable>
-      {confirmingDelete ? (
+      {confirmingDelete && onDelete ? (
         <View>
           <Text style={styles.note}>Delete this transaction? This cannot be undone.</Text>
           <View style={styles.row}>
@@ -47,16 +47,20 @@ export default function TransactionItem({ transaction, onPress, onEdit, onDelete
             </Pressable>
           </View>
         </View>
-      ) : (
+      ) : onEdit || onDelete ? (
         <View style={styles.row}>
-          <Pressable accessibilityRole="button" onPress={onEdit} style={styles.action}>
-            <Text style={styles.editText}>Edit</Text>
-          </Pressable>
-          <Pressable accessibilityRole="button" onPress={() => setConfirmingDelete(true)} style={styles.action}>
-            <Text style={styles.expense}>Delete</Text>
-          </Pressable>
+          {onEdit ? (
+            <Pressable accessibilityRole="button" onPress={onEdit} style={styles.action}>
+              <Text style={styles.editText}>Edit</Text>
+            </Pressable>
+          ) : null}
+          {onDelete ? (
+            <Pressable accessibilityRole="button" onPress={() => setConfirmingDelete(true)} style={styles.action}>
+              <Text style={styles.expense}>Delete</Text>
+            </Pressable>
+          ) : null}
         </View>
-      )}
+      ) : null}
     </View>
   );
 }

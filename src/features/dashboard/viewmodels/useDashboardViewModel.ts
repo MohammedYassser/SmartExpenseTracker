@@ -11,6 +11,7 @@ export function useDashboardViewModel() {
   }
 
   const totalBalance = totalIncome - totalExpenses;
+  const recentTransactions = transactions.slice(0, 3);
 
-  return { totalIncome, totalExpenses, totalBalance };
+  return { totalIncome, totalExpenses, totalBalance, recentTransactions };
 }
