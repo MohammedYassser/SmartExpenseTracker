@@ -1,36 +1,62 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { Transaction } from '@/models/Transaction';
 
 interface TransactionItemProps {
   transaction: Transaction;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export default function TransactionItem({ transaction }: TransactionItemProps) {
+export default function TransactionItem({ transaction, onEdit, onDelete }: TransactionItemProps) {
   const isIncome = transaction.type === 'income';
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   return (
     <View style={styles.card}>
-      <View style={styles.details}>
-        <Text style={styles.category}>{transaction.category}</Text>
-        {transaction.note ? <Text style={styles.note}>{transaction.note}</Text> : null}
-        <Text style={styles.date}>{transaction.date}</Text>
+      <View style={styles.row}>
+        <View style={styles.details}>
+          <Text style={styles.category}>{transaction.category}</Text>
+          {transaction.note ? <Text style={styles.note}>{transaction.note}</Text> : null}
+          <Text style={styles.date}>{transaction.date}</Text>
+        </View>
+        <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
+          {isIncome ? '+ ' : '- '}
+          {transaction.amount.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </Text>
       </View>
-      <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
-        {isIncome ? '+ ' : '- '}
-        {transaction.amount.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </Text>
+      {confirmingDelete ? (
+        <View>
+          <Text style={styles.note}>Delete this transaction? This cannot be undone.</Text>
+          <View style={styles.row}>
+            <Pressable accessibilityRole="button" onPress={() => setConfirmingDelete(false)} style={styles.action}>
+              <Text style={styles.editText}>Cancel</Text>
+            </Pressable>
+            <Pressable accessibilityRole="button" onPress={onDelete} style={styles.action}>
+              <Text style={styles.expense}>Confirm Delete</Text>
+            </Pressable>
+          </View>
+        </View>
+      ) : (
+        <View style={styles.row}>
+          <Pressable accessibilityRole="button" onPress={onEdit} style={styles.action}>
+            <Text style={styles.editText}>Edit</Text>
+          </Pressable>
+          <Pressable accessibilityRole="button" onPress={() => setConfirmingDelete(true)} style={styles.action}>
+            <Text style={styles.expense}>Delete</Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 12,
     padding: 16,
     marginBottom: 12,
@@ -39,6 +65,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#ffffff',
   },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  action: { minHeight: 44, paddingHorizontal: 12, justifyContent: 'center' },
+  editText: { color: '#1d4ed8', fontSize: 14, fontWeight: '600' },
   details: { flex: 1, gap: 4 },
   category: { fontSize: 16, fontWeight: '600', color: '#0f172a' },
   note: { fontSize: 14, color: '#475569' },

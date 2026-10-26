@@ -5,6 +5,8 @@ import type { Transaction } from '@/models/Transaction';
 interface TransactionsContextValue {
   transactions: Transaction[];
   addTransaction: (transaction: Transaction) => void;
+  updateTransaction: (transaction: Transaction) => void;
+  deleteTransaction: (id: string) => void;
 }
 
 const TransactionsContext = createContext<TransactionsContextValue | undefined>(undefined);
@@ -20,8 +22,18 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     setTransactions((currentTransactions) => [transaction, ...currentTransactions]);
   }
 
+  function updateTransaction(transaction: Transaction) {
+    setTransactions((currentTransactions) =>
+      currentTransactions.map((current) => current.id === transaction.id ? transaction : current)
+    );
+  }
+
+  function deleteTransaction(id: string) {
+    setTransactions((currentTransactions) => currentTransactions.filter((transaction) => transaction.id !== id));
+  }
+
   return (
-    <TransactionsContext.Provider value={{ transactions, addTransaction }}>
+    <TransactionsContext.Provider value={{ transactions, addTransaction, updateTransaction, deleteTransaction }}>
       {children}
     </TransactionsContext.Provider>
   );

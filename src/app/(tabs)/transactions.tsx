@@ -5,7 +5,7 @@ import TransactionItem from '@/features/transactions/components/TransactionItem'
 import { useTransactionsViewModel } from '@/features/transactions/viewmodels/useTransactionsViewModel';
 
 export default function TransactionsScreen() {
-  const { searchText, setSearchText, filteredTransactions } =
+  const { searchText, setSearchText, filteredTransactions, deleteTransaction } =
     useTransactionsViewModel();
 
   return (
@@ -33,7 +33,13 @@ export default function TransactionsScreen() {
         <FlatList
           data={filteredTransactions}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <TransactionItem transaction={item} />}
+          renderItem={({ item }) => (
+            <TransactionItem
+              transaction={item}
+              onEdit={() => router.push({ pathname: '/edit-transaction', params: { id: item.id } })}
+              onDelete={() => deleteTransaction(item.id)}
+            />
+          )}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           contentContainerStyle={styles.listContent}

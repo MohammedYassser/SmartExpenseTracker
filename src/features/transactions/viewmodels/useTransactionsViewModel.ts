@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTransactions } from '@/context/transactions';
 
 export function useTransactionsViewModel() {
-  const { transactions } = useTransactions();
+  const { transactions, deleteTransaction } = useTransactions();
   const [searchText, setSearchText] = useState('');
   const query = searchText.trim().toLowerCase();
   const filteredTransactions = transactions.filter((transaction) =>
@@ -12,5 +12,5 @@ export function useTransactionsViewModel() {
     )
   );
 
-  return { searchText, setSearchText, filteredTransactions };
+  return { searchText, setSearchText, filteredTransactions, deleteTransaction };
 }
