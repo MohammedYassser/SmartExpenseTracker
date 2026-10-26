@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import type { Transaction } from '@/models/Transaction';
+import { useTransactions } from '@/context/transactions';
 
-export function useTransactionsViewModel(transactions: Transaction[]) {
+export function useTransactionsViewModel() {
+  const { transactions, deleteTransaction } = useTransactions();
   const [searchText, setSearchText] = useState('');
   const query = searchText.trim().toLowerCase();
   const filteredTransactions = transactions.filter((transaction) =>
@@ -11,5 +12,5 @@ export function useTransactionsViewModel(transactions: Transaction[]) {
     )
   );
 
-  return { searchText, setSearchText, filteredTransactions };
+  return { searchText, setSearchText, filteredTransactions, deleteTransaction };
 }

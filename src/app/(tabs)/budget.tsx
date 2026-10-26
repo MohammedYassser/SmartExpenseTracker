@@ -1,25 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import { ui } from '@/constants/styles';
 
 export default function BudgetScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Budget</Text>
+    <View style={[ui.container, ui.content]}>
+      <Text style={ui.title}>Budget</Text>
+      <Text style={[ui.subtitle, { marginTop: 8, marginBottom: 24 }]}>A little planning goes a long way.</Text>
+      <View style={ui.card}>
+        <Text style={ui.sectionTitle}>Coming soon</Text>
+        <Text style={[ui.subtitle, { marginTop: 8 }]}>This section is not available yet.</Text>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: '#000000',
-  },
-});
