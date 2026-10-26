@@ -1,11 +1,10 @@
-import { StyleSheet, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default function Index() {
+export default function ReportsScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Smart Expense Tracker</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Reports</Text>
+    </View>
   );
 }
 
