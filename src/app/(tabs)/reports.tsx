@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
+import AppIcon from '@/components/AppIcon';
 import { Colors, ui } from '@/constants/styles';
 import CategoryReportItem from '@/features/reports/components/CategoryReportItem';
 import { useReportsViewModel } from '@/features/reports/viewmodels/useReportsViewModel';
@@ -29,6 +30,11 @@ export default function ReportsScreen() {
         <View>
           <Text style={ui.title}>Reports</Text>
           <Text style={[ui.subtitle, styles.intro]}>Understand where your money is going.</Text>
+          <Pressable accessibilityRole="button" onPress={() => router.push('/monthly-summary')} style={({ pressed }) => [ui.secondaryButton, ui.iconRow, styles.section, pressed && ui.pressed]}>
+            <AppIcon name="wallet" size={18} />
+            <Text style={ui.link}>Monthly Summary</Text>
+            <AppIcon name="forward" size={18} />
+          </Pressable>
           {report.totalCount === 0 ? (
             <View style={[ui.card, styles.section]}>
               <Text style={ui.sectionTitle}>No transaction data yet.</Text>

@@ -1,6 +1,6 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import AppIcon from '@/components/AppIcon';
 import { Colors, ui } from '@/constants/styles';
@@ -46,12 +46,13 @@ export default function SettingsScreen() {
           <Text style={styles.description}>Light</Text>
         </View>
         <View style={[ui.iconRow, { marginTop: 12, marginBottom: 2 }]}><AppIcon name="info" size={18} /><Text style={ui.sectionTitle}>About</Text></View>
-        <View style={ui.card}>
-          <Text style={ui.hint}>Application</Text>
-          <Text style={styles.value}>Smart Expense Tracker</Text>
-          <Text style={[ui.subtitle, { marginTop: 8 }]}>Personal finance tracking made simple.</Text>
-          <Text style={ui.hint}>Version 1.0</Text>
-        </View>
+        <Pressable accessibilityRole="button" onPress={() => router.push('/about')} style={({ pressed }) => [ui.card, styles.row, pressed && ui.pressed]}>
+          <View style={styles.rowText}>
+            <Text style={styles.value}>About SmartExpenseTracker</Text>
+            <Text style={styles.description}>App information, features and project details.</Text>
+          </View>
+          <AppIcon name="forward" size={18} />
+        </Pressable>
       </ScrollView>
     </>
   );
