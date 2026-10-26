@@ -36,6 +36,7 @@ export default function TransactionsScreen() {
           renderItem={({ item }) => (
             <TransactionItem
               transaction={item}
+              onPress={() => router.push({ pathname: '/transaction-details', params: { id: item.id } })}
               onEdit={() => router.push({ pathname: '/edit-transaction', params: { id: item.id } })}
               onDelete={() => deleteTransaction(item.id)}
             />

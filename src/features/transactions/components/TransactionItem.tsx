@@ -5,17 +5,23 @@ import type { Transaction } from '@/models/Transaction';
 
 interface TransactionItemProps {
   transaction: Transaction;
+  onPress: () => void;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-export default function TransactionItem({ transaction, onEdit, onDelete }: TransactionItemProps) {
+export default function TransactionItem({ transaction, onPress, onEdit, onDelete }: TransactionItemProps) {
   const isIncome = transaction.type === 'income';
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   return (
     <View style={styles.card}>
-      <View style={styles.row}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`View transaction: ${transaction.category}, ${transaction.date}`}
+        accessibilityHint="Opens transaction details"
+        onPress={onPress}
+        style={({ pressed }) => [styles.row, pressed && { opacity: 0.8 }]}>
         <View style={styles.details}>
           <Text style={styles.category}>{transaction.category}</Text>
           {transaction.note ? <Text style={styles.note}>{transaction.note}</Text> : null}
@@ -28,7 +34,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
             maximumFractionDigits: 2,
           })}
         </Text>
-      </View>
+      </Pressable>
       {confirmingDelete ? (
         <View>
           <Text style={styles.note}>Delete this transaction? This cannot be undone.</Text>
