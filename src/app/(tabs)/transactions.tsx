@@ -3,16 +3,10 @@ import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-na
 
 import TransactionItem from '@/features/transactions/components/TransactionItem';
 import { useTransactionsViewModel } from '@/features/transactions/viewmodels/useTransactionsViewModel';
-import type { Transaction } from '@/models/Transaction';
 
 export default function TransactionsScreen() {
-  const sampleTransactions: Transaction[] = [
-    { id: '1', type: 'expense', amount: 150, category: 'Food', date: '2026-10-25', note: 'Lunch' },
-    { id: '2', type: 'expense', amount: 300, category: 'Transport', date: '2026-10-24', note: 'Taxi' },
-    { id: '3', type: 'income', amount: 5000, category: 'Salary', date: '2026-10-01', note: 'Monthly salary' },
-  ];
   const { searchText, setSearchText, filteredTransactions } =
-    useTransactionsViewModel(sampleTransactions);
+    useTransactionsViewModel();
 
   return (
     <View style={styles.container}>

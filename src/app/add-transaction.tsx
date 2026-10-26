@@ -1,14 +1,20 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import TransactionItem from '@/features/transactions/components/TransactionItem';
 import { useAddTransactionViewModel } from '@/features/transactions/viewmodels/useAddTransactionViewModel';
 
 export default function AddTransactionScreen() {
   const {
     type, setType, amount, setAmount, category, setCategory,
-    date, setDate, note, setNote, errors, submittedTransaction, submit,
+    date, setDate, note, setNote, errors, submit,
   } = useAddTransactionViewModel();
+
+  function handleSubmit() {
+    if (submit()) {
+      if (router.canGoBack()) router.back();
+      else router.replace('/transactions');
+    }
+  }
 
   return (
     <>
@@ -84,20 +90,10 @@ export default function AddTransactionScreen() {
         />
         <Pressable
           accessibilityRole="button"
-          onPress={submit}
+          onPress={handleSubmit}
           style={({ pressed }) => [styles.submitButton, pressed && styles.pressed]}>
           <Text style={styles.submitText}>Add Transaction</Text>
         </Pressable>
-
-        {submittedTransaction ? (
-          <View style={styles.successContainer}>
-            <Text accessibilityLiveRegion="polite" style={styles.success}>
-              Transaction added successfully.
-            </Text>
-            <Text style={styles.hint}>Temporary preview only. This transaction has not been saved.</Text>
-            <TransactionItem transaction={submittedTransaction} />
-          </View>
-        ) : null}
       </ScrollView>
     </>
   );
@@ -128,6 +124,4 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.8 },
   submitText: { fontSize: 16, fontWeight: '600', color: '#ffffff' },
-  successContainer: { marginTop: 24 },
-  success: { color: '#15803d', fontSize: 16, fontWeight: '600' },
 });

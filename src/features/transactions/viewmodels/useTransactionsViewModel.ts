@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import type { Transaction } from '@/models/Transaction';
+import { useTransactions } from '@/context/transactions';
 
-export function useTransactionsViewModel(transactions: Transaction[]) {
+export function useTransactionsViewModel() {
+  const { transactions } = useTransactions();
   const [searchText, setSearchText] = useState('');
   const query = searchText.trim().toLowerCase();
   const filteredTransactions = transactions.filter((transaction) =>
