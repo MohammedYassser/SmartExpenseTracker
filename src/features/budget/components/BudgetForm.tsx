@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors, ui } from '@/constants/styles';
-import { useBudgetFormViewModel } from '@/features/budget/viewmodels/useBudgetFormViewModel';
+import { budgetCategories, useBudgetFormViewModel } from '@/features/budget/viewmodels/useBudgetFormViewModel';
 import type { Budget } from '@/models/Budget';
 
 interface BudgetFormProps {
@@ -11,7 +11,7 @@ interface BudgetFormProps {
 }
 
 export default function BudgetForm({ budget, onSaved, onCancel }: BudgetFormProps) {
-  const { category, setCategory, amount, setAmount, errors, submit } = useBudgetFormViewModel(budget);
+  const { category, setCategory, customCategory, setCustomCategory, amount, setAmount, errors, submit } = useBudgetFormViewModel(budget);
 
   function save() {
     if (submit()) onSaved();
@@ -21,7 +21,7 @@ export default function BudgetForm({ budget, onSaved, onCancel }: BudgetFormProp
     <View>
       <Text style={ui.label}>Category</Text>
       <View style={styles.options}>
-        {['Food', 'Transport', 'Shopping', 'Entertainment'].map((option) => (
+        {[...budgetCategories, 'Other'].map((option) => (
           <Pressable
             key={option}
             accessibilityRole="button"
@@ -32,6 +32,19 @@ export default function BudgetForm({ budget, onSaved, onCancel }: BudgetFormProp
           </Pressable>
         ))}
       </View>
+      {category === 'Other' ? (
+        <>
+          <Text style={ui.label}>Custom Category</Text>
+          <TextInput
+            accessibilityLabel="Custom Category"
+            style={ui.input}
+            placeholder="e.g. Pet Care"
+            placeholderTextColor={Colors.secondary}
+            value={customCategory}
+            onChangeText={setCustomCategory}
+          />
+        </>
+      ) : null}
       {errors.category ? <Text style={ui.error}>{errors.category}</Text> : null}
       <Text style={ui.label}>Budget Amount</Text>
       <TextInput

@@ -12,7 +12,13 @@ export default function TransactionsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Transactions</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Transactions</Text>
+        <Pressable accessibilityRole="button" onPress={() => router.push('/transaction-statistics')} style={[ui.linkButton, ui.iconRow]}>
+          <AppIcon name="info" size={18} />
+          <Text style={ui.link}>Statistics</Text>
+        </Pressable>
+      </View>
       <Text style={styles.subtitle}>Manage your income and expenses.</Text>
       <TextInput
         style={styles.searchInput}
@@ -57,6 +63,7 @@ const styles = StyleSheet.create({
   ...ui,
   container: { ...ui.container, paddingHorizontal: 24, paddingTop: 24 },
   title: { ...ui.title, marginBottom: 8 },
+  header: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', columnGap: 8 },
   subtitle: { ...ui.subtitle, marginBottom: 20 },
   searchInput: { ...ui.input, marginBottom: 12 },
   addButton: { ...ui.button, marginBottom: 16 },
