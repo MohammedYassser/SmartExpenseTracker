@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { Colors, ui } from '@/constants/styles';
 import type { Transaction } from '@/models/Transaction';
 
 interface TransactionItemProps {
@@ -66,23 +67,14 @@ export default function TransactionItem({ transaction, onPress, onEdit, onDelete
 }
 
 const styles = StyleSheet.create({
-  card: {
-    gap: 12,
-    padding: 16,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    borderRadius: 12,
-    backgroundColor: '#ffffff',
-  },
+  ...ui,
+  card: { ...ui.card, padding: 16, gap: 12, marginBottom: 12 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  action: { minHeight: 44, paddingHorizontal: 12, justifyContent: 'center' },
-  editText: { color: '#1d4ed8', fontSize: 14, fontWeight: '600' },
-  details: { flex: 1, gap: 4 },
-  category: { fontSize: 16, fontWeight: '600', color: '#0f172a' },
-  note: { fontSize: 14, color: '#475569' },
-  date: { fontSize: 13, color: '#64748b' },
-  amount: { flexShrink: 1, fontSize: 16, fontWeight: '600' },
-  income: { color: '#15803d' },
-  expense: { color: '#b91c1c' },
+  action: { minHeight: 44, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 6, backgroundColor: Colors.background },
+  editText: ui.link,
+  details: { flex: 1, gap: 5 },
+  category: { fontSize: 16, fontWeight: '600', color: Colors.text },
+  note: { fontSize: 14, lineHeight: 21, color: Colors.secondary },
+  date: { fontSize: 12, color: Colors.secondary },
+  amount: { flexShrink: 1, fontSize: 16, fontWeight: '600', color: Colors.text },
 });

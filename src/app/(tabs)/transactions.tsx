@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import { Colors, ui } from '@/constants/styles';
 import TransactionItem from '@/features/transactions/components/TransactionItem';
 import { useTransactionsViewModel } from '@/features/transactions/viewmodels/useTransactionsViewModel';
 
@@ -20,7 +21,7 @@ export default function TransactionsScreen() {
       <TextInput
         style={styles.searchInput}
         placeholder="Search transactions..."
-        placeholderTextColor="#64748b"
+        placeholderTextColor={Colors.secondary}
         accessibilityLabel="Search transactions"
         value={searchText}
         onChangeText={setSearchText}
@@ -51,40 +52,11 @@ export default function TransactionsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    backgroundColor: '#f8fafc',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 16,
-    color: '#0f172a',
-  },
-  searchInput: {
-    minHeight: 48,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#cbd5e1',
-    borderRadius: 10,
-    backgroundColor: '#ffffff',
-    color: '#0f172a',
-    fontSize: 16,
-  },
-  addButton: {
-    minHeight: 48,
-    padding: 14,
-    marginBottom: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    backgroundColor: '#1d4ed8',
-  },
-  addButtonText: { fontSize: 16, fontWeight: '600', color: '#ffffff' },
+  ...ui,
+  container: { ...ui.container, paddingHorizontal: 24, paddingTop: 24 },
+  title: { ...ui.title, marginBottom: 20 },
+  searchInput: { ...ui.input, marginBottom: 20 },
+  addButton: { ...ui.button, marginBottom: 16 },
+  addButtonText: ui.buttonText,
   listContent: { paddingBottom: 24 },
-  emptyText: { paddingVertical: 32, textAlign: 'center', color: '#475569', fontSize: 16 },
 });

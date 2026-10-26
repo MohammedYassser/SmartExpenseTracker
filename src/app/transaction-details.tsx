@@ -1,6 +1,7 @@
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { Colors, ui } from '@/constants/styles';
 import { useTransactions } from '@/context/transactions';
 
 export default function TransactionDetailsScreen() {
@@ -57,18 +58,10 @@ export default function TransactionDetailsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8fafc' },
-  content: { padding: 20, paddingBottom: 40 },
-  card: { padding: 16, borderWidth: 1, borderColor: '#e2e8f0', borderRadius: 12, backgroundColor: '#ffffff' },
-  label: { marginTop: 12, marginBottom: 4, fontSize: 14, fontWeight: '600', color: '#475569' },
-  value: { fontSize: 16, color: '#0f172a' },
-  amount: { fontSize: 24, fontWeight: '600' },
-  income: { color: '#15803d' },
-  expense: { color: '#b91c1c' },
-  backButton: {
-    minHeight: 48, marginTop: 24, padding: 14, alignItems: 'center',
-    justifyContent: 'center', borderRadius: 10, backgroundColor: '#1d4ed8',
-  },
-  pressed: { opacity: 0.8 },
-  backText: { fontSize: 16, fontWeight: '600', color: '#ffffff' },
+  ...ui,
+  label: { ...ui.label, marginTop: 12, marginBottom: 4 },
+  value: { fontSize: 16, lineHeight: 24, color: Colors.text },
+  amount: { fontSize: 28, fontWeight: '600' },
+  backButton: { ...ui.button, marginTop: 24 },
+  backText: ui.buttonText,
 });

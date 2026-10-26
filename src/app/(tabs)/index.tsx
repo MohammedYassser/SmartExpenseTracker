@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useDashboardViewModel } from '@/features/dashboard/viewmodels/useDashboardViewModel';
+import { Colors, ui } from '@/constants/styles';
 import TransactionItem from '@/features/transactions/components/TransactionItem';
 
 export default function DashboardScreen() {
@@ -10,7 +11,13 @@ export default function DashboardScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>Smart Expense Tracker</Text>
+      <View style={styles.headingRow}>
+        <Text style={[styles.title, styles.headingTitle]}>Smart Expense Tracker</Text>
+        <Pressable accessibilityRole="button" onPress={() => router.push('/login')} style={styles.loginAction}>
+          <Text style={ui.link}>Login</Text>
+        </Pressable>
+      </View>
+      <Text style={ui.subtitle}>A clear view of your money.</Text>
       <View style={[styles.card, styles.balanceCard]}>
         <Text style={styles.balanceLabel}>Total Balance</Text>
         <Text style={styles.balanceAmount}>{totalBalance.toLocaleString('en-US', amountFormat)}</Text>
@@ -48,29 +55,15 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8fafc',
-  },
-  content: { padding: 20, paddingBottom: 40, gap: 16 },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#0f172a',
-  },
-  card: { padding: 20, gap: 8, borderWidth: 1, borderColor: '#e2e8f0', borderRadius: 12, backgroundColor: '#ffffff' },
-  sectionTitle: { fontSize: 20, fontWeight: '600', color: '#0f172a' },
-  balanceCard: { backgroundColor: '#1d4ed8', borderColor: '#1d4ed8' },
-  balanceLabel: { fontSize: 16, color: '#ffffff' },
-  balanceAmount: { fontSize: 36, fontWeight: '700', color: '#ffffff' },
-  label: { fontSize: 16, color: '#475569' },
+  ...ui,
+  content: { ...ui.content, gap: 16 },
+  headingRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  headingTitle: { flex: 1, fontSize: 24, lineHeight: 31 },
+  loginAction: { minHeight: 44, paddingHorizontal: 4, justifyContent: 'center' },
+  card: { ...ui.card, gap: 8 },
+  balanceCard: { backgroundColor: Colors.accentLight, borderColor: Colors.border },
+  balanceLabel: { fontSize: 15, color: Colors.accent },
+  balanceAmount: { fontSize: 36, fontWeight: '700', color: Colors.text },
+  label: { fontSize: 14, color: Colors.secondary },
   amount: { fontSize: 24, fontWeight: '600' },
-  income: { color: '#15803d' },
-  expense: { color: '#b91c1c' },
-  button: {
-    minHeight: 48, padding: 14, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 10, backgroundColor: '#1d4ed8',
-  },
-  pressed: { opacity: 0.8 },
-  buttonText: { fontSize: 16, fontWeight: '600', color: '#ffffff' },
 });
