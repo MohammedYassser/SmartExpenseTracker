@@ -50,6 +50,12 @@ export default function ReportsScreen() {
             <Text style={ui.subtitle}>Net Balance</Text>
             <Text style={[styles.amount, styles.balance]}>{format(report.netBalance)}</Text>
           </View>
+          <Text style={[ui.sectionTitle, styles.section]}>Spending by Category</Text>
+        </View>
+      }
+      ListEmptyComponent={<Text style={ui.emptyText}>No expense data yet.</Text>}
+      ListFooterComponent={
+        <View>
           <View style={[ui.card, styles.section]}>
             <Text style={ui.sectionTitle}>Top Spending Category</Text>
             {report.topCategory ? (
@@ -62,24 +68,20 @@ export default function ReportsScreen() {
             <ReportRow label="Expense Transactions" value={report.expenseCount} />
             <ReportRow label="Total Transactions" value={report.totalCount} />
           </View>
-          <Text style={[ui.sectionTitle, styles.section]}>Spending by Category</Text>
-        </View>
-      }
-      ListEmptyComponent={<Text style={ui.emptyText}>No expense data yet.</Text>}
-      ListFooterComponent={
-        <View style={ui.card}>
-          <Text style={ui.sectionTitle}>Budget Summary</Text>
-          {report.hasBudgets ? (
-            <>
-              <ReportRow label="Total Budget" value={format(report.totalBudget)} />
-              <ReportRow label="Total Spent" value={format(report.budgetSpent)} />
-              <ReportRow label="Remaining Budget" value={format(report.remainingBudget)} />
-              <Text style={ui.hint}>Spending in your budget categories.</Text>
-            </>
-          ) : <Text style={[ui.subtitle, { marginTop: 12 }]}>No budgets available.</Text>}
-          <Pressable accessibilityRole="button" onPress={() => router.navigate('/budget')} style={ui.linkButton}>
-            <Text style={ui.link}>View Budget</Text>
-          </Pressable>
+          <View style={ui.card}>
+            <Text style={ui.sectionTitle}>Budget Summary</Text>
+            {report.hasBudgets ? (
+              <>
+                <ReportRow label="Total Budget" value={format(report.totalBudget)} />
+                <ReportRow label="Total Spent" value={format(report.budgetSpent)} />
+                <ReportRow label="Remaining Budget" value={format(report.remainingBudget)} />
+                <Text style={ui.hint}>Spending in your budget categories.</Text>
+              </>
+            ) : <Text style={[ui.subtitle, { marginTop: 12 }]}>No budgets available.</Text>}
+            <Pressable accessibilityRole="button" onPress={() => router.navigate('/budget')} style={ui.linkButton}>
+              <Text style={ui.link}>View Budget</Text>
+            </Pressable>
+          </View>
         </View>
       }
     />
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   amount: { fontSize: 28, fontWeight: '600', marginTop: 8 },
   balanceCard: { backgroundColor: Colors.accentLight },
   balance: { color: Colors.accent },
-  row: { flexDirection: 'row', gap: 12, justifyContent: 'space-between', marginTop: 14 },
+  row: { flexDirection: 'row', gap: 12, justifyContent: 'space-between', marginTop: 12 },
   rowLabel: { flex: 1 },
   rowValue: { flexShrink: 1, fontSize: 15, fontWeight: '600', color: Colors.text, textAlign: 'right' },
 });

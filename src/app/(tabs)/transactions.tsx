@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import AppIcon from '@/components/AppIcon';
 import { Colors, ui } from '@/constants/styles';
 import TransactionItem from '@/features/transactions/components/TransactionItem';
 import { useTransactionsViewModel } from '@/features/transactions/viewmodels/useTransactionsViewModel';
@@ -12,12 +13,7 @@ export default function TransactionsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Transactions</Text>
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => router.push('/add-transaction')}
-        style={({ pressed }) => [styles.addButton, pressed && { opacity: 0.8 }]}>
-        <Text style={styles.addButtonText}>Add Transaction</Text>
-      </Pressable>
+      <Text style={styles.subtitle}>Manage your income and expenses.</Text>
       <TextInput
         style={styles.searchInput}
         placeholder="Search transactions..."
@@ -28,6 +24,12 @@ export default function TransactionsScreen() {
         autoCapitalize="none"
         autoCorrect={false}
       />
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => router.push('/add-transaction')}
+        style={({ pressed }) => [styles.addButton, ui.iconRow, pressed && ui.pressed]}>
+        <AppIcon name="add" color={Colors.surface} size={18} /><Text style={styles.addButtonText}>Add Transaction</Text>
+      </Pressable>
       {filteredTransactions.length === 0 ? (
         <Text style={styles.emptyText}>No transactions found.</Text>
       ) : (
@@ -54,8 +56,9 @@ export default function TransactionsScreen() {
 const styles = StyleSheet.create({
   ...ui,
   container: { ...ui.container, paddingHorizontal: 24, paddingTop: 24 },
-  title: { ...ui.title, marginBottom: 20 },
-  searchInput: { ...ui.input, marginBottom: 20 },
+  title: { ...ui.title, marginBottom: 8 },
+  subtitle: { ...ui.subtitle, marginBottom: 20 },
+  searchInput: { ...ui.input, marginBottom: 12 },
   addButton: { ...ui.button, marginBottom: 16 },
   addButtonText: ui.buttonText,
   listContent: { paddingBottom: 24 },

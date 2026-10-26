@@ -40,7 +40,7 @@ export default function BudgetCard({ budget, spent, onPress }: BudgetCardProps) 
 
 const styles = StyleSheet.create({
   card: { marginBottom: 16, gap: 6 },
-  budgetAmount: { fontSize: 17, fontWeight: '600', color: Colors.text },
+  budgetAmount: { fontSize: 17, fontWeight: '600', color: Colors.accent },
   track: { height: 8, borderRadius: 4, backgroundColor: Colors.accentLight, overflow: 'hidden', marginTop: 8 },
   fill: { height: '100%', backgroundColor: Colors.accent },
   exceededFill: { backgroundColor: Colors.expense },

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Colors, ui } from '@/constants/styles';
+import AppIcon from '@/components/AppIcon';
 import type { Transaction } from '@/models/Transaction';
 
 interface TransactionItemProps {
@@ -23,6 +24,9 @@ export default function TransactionItem({ transaction, onPress, onEdit, onDelete
         accessibilityHint="Opens transaction details"
         onPress={onPress}
         style={({ pressed }) => [styles.row, pressed && { opacity: 0.8 }]}>
+        <View style={ui.iconBadge}>
+          <AppIcon name={isIncome ? 'income' : 'expense'} color={isIncome ? Colors.income : Colors.expense} size={18} />
+        </View>
         <View style={styles.details}>
           <Text style={styles.category}>{transaction.category}</Text>
           {transaction.note ? <Text style={styles.note}>{transaction.note}</Text> : null}
@@ -69,10 +73,10 @@ export default function TransactionItem({ transaction, onPress, onEdit, onDelete
 const styles = StyleSheet.create({
   ...ui,
   card: { ...ui.card, padding: 16, gap: 12, marginBottom: 12 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  row: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   action: { minHeight: 44, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 6, backgroundColor: Colors.background },
   editText: ui.link,
-  details: { flex: 1, gap: 5 },
+  details: { flex: 1, gap: 4 },
   category: { fontSize: 16, fontWeight: '600', color: Colors.text },
   note: { fontSize: 14, lineHeight: 21, color: Colors.secondary },
   date: { fontSize: 12, color: Colors.secondary },

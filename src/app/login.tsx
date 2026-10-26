@@ -2,6 +2,7 @@ import { router, Stack } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
+import AppIcon from '@/components/AppIcon';
 import { Colors, ui } from '@/constants/styles';
 
 export default function LoginScreen() {
@@ -31,7 +32,10 @@ export default function LoginScreen() {
     <>
       <Stack.Screen options={{ headerShown: true, title: 'Login' }} />
       <ScrollView style={ui.container} contentContainerStyle={ui.authContent} keyboardShouldPersistTaps="handled" automaticallyAdjustKeyboardInsets>
-        <Text style={ui.brand}>Smart Expense Tracker</Text>
+        <View style={[ui.iconRow, { marginBottom: 24 }]}>
+          <AppIcon name="wallet" size={22} />
+          <Text style={[ui.brand, { marginBottom: 0 }]}>Smart Expense Tracker</Text>
+        </View>
         <Text style={ui.authTitle}>Welcome back</Text>
         <Text style={ui.subtitle}>A little clarity for your everyday spending.</Text>
         <Text style={ui.label}>Email</Text>

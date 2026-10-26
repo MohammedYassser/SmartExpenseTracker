@@ -2,6 +2,7 @@ import { router, Stack } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
+import AppIcon from '@/components/AppIcon';
 import { Colors, ui } from '@/constants/styles';
 
 interface SignUpErrors {
@@ -43,7 +44,10 @@ export default function SignUpScreen() {
     <>
       <Stack.Screen options={{ headerShown: true, title: 'Sign Up' }} />
       <ScrollView style={ui.container} contentContainerStyle={ui.authContent} keyboardShouldPersistTaps="handled" automaticallyAdjustKeyboardInsets>
-        <Text style={ui.brand}>Smart Expense Tracker</Text>
+        <View style={[ui.iconRow, { marginBottom: 24 }]}>
+          <AppIcon name="wallet" size={22} />
+          <Text style={[ui.brand, { marginBottom: 0 }]}>Smart Expense Tracker</Text>
+        </View>
         <Text style={ui.authTitle}>Start with a clear picture</Text>
         <Text style={ui.subtitle}>Keep everyday spending in one place.</Text>
         <Text style={ui.label}>Name</Text>
